@@ -1,10 +1,10 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from core.model_mixins import Timestamps
+from bokatas_store.core.model_mixins import Timestamps
 
 
-class Category(Timestamps):
+class Category(models.Model):
     NAME_MAX_LENGTH = 50
     NAME_MIN_LENGTH = 3
 
@@ -35,7 +35,10 @@ class Category(Timestamps):
         return self.name
 
 
-class ProductPictures(models.Model):
+class ProductPicture(models.Model):
+    class Meta:
+        verbose_name_plural = "product pictures"
+
     picture = models.ImageField(
         upload_to="mediafiles/product_pictures",
         null=False,
@@ -86,6 +89,6 @@ class Product(Timestamps):
     )
 
     pictures = models.ManyToManyField(
-        ProductPictures,
+        ProductPicture,
         related_name="products",
     )

@@ -1,6 +1,6 @@
 from django.db import models
 
-from bokatas_store.accounts.models import UserField
+from bokatas_store.accounts.mixins import UserField
 from bokatas_store.products.models import Product
 
 

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Bokata's store{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/site-icon.png' %}">
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+</head>
+<body>
+
+<header class="site-header">
+
+    <div class="left">
+
+        <a href="{% url 'index' %}"><img src="{% static 'images/site-icon.png' %}" alt="site icon"></a>
+        <a class="text" href="#">Categories</a>
+
+    </div>
+
+    <div class="right">
+
+        {% if not request.user.isauthenticated %}
+
+            <a class="text" href="#">Login</a>
+            <a class="text" href="#">Register</a>
+
+        {% endif %}
+
+    </div>
+
+</header>
+
+{% block content %}
+	
+{% endblock %}
+
+
+</body>
+</html>

@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "bokatas_store.accounts.apps.AccountsConfig",
     "bokatas_store.orders.apps.OrdersConfig",
     "bokatas_store.products.apps.ProductsConfig",
+    "bokatas_store.profiles.apps.ProfilesConfig",
+    "bokatas_store.web.apps.WebConfig",
 ]
 
 MIDDLEWARE = [
