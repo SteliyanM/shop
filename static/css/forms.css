@@ -1,0 +1,47 @@
+div.form {
+    align-self: center;
+    justify-self: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0 1em 1em 1em;
+    margin: 10em 0;
+    display: flex;
+    flex-direction: column;
+}
+
+div.form > h1 {
+    text-align: center;
+    margin: 0.5em;
+    font-size: 50px;
+}
+
+div.form > form > p,
+div.form > form > p > input {
+    font-size: 20px;
+    padding: 0.3em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+div.form > form li {
+    list-style-type: none;
+    font-size: 20px;
+}
+
+div.form button {
+    padding: 0.5em;
+    font-size: 15px;
+    background-color: azure;
+    border-radius: 5px;
+    align-self: end;
+    justify-self: end;
+}
+
+div.form button:hover {
+    background-color: greenyellow;
+    cursor: pointer;
+}
+
+#id_password2_helptext {
+    display: none;
+}

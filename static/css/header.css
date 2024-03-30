@@ -7,11 +7,12 @@ header.site-header {
     background: greenyellow;
 }
 
-header.site-header img {
+header.site-header img.site-icon {
     height: 5.5em;
 }
 
-header > div.left {
+header > div.left,
+header > div.right {
     display: flex;
     align-items: center;
 }
@@ -21,11 +22,36 @@ header.site-header > div.left > * {
 }
 
 header.site-header > div.right > * {
-    margin: 0 1em;
+    margin: 0 0.5em;
 }
 
 header.site-header > div > a.text {
     font-size: 25px;
     text-decoration: none;
     color: black;
+}
+
+.logout-img {
+    height: 3em;
+    padding-left: 0.5em;
+}
+
+div.right > a {
+    display: flex;
+    align-items: center;
+}
+
+.profile-image {
+    background-color: greenyellow;
+    border: 0px solid black;
+    border-radius: 50%;
+    padding-right: 1em;
+    align-self: center;
+    justify-self: center;
+}
+
+.profile-image > img {
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
 }
