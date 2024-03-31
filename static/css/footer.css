@@ -1,0 +1,11 @@
+footer.site-footer {
+    align-self: center;
+    margin-top: auto;
+    background-color: greenyellow;
+    width: 100%;
+}
+
+footer.site-footer > p {
+    padding: 20px;
+    text-align: center;
+}
