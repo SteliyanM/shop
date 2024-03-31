@@ -20,6 +20,11 @@ class UserLoginForm(forms.Form):
         widget=forms.PasswordInput(attrs={"autocomplete": "current-password"}),
     )
 
+    remember_me = forms.BooleanField(
+        label=_("Remember me"),
+        required=False,
+    )
+
     error_messages = {
         "invalid_login": _(
             "Incorrect email and password. Note that both fields may be case-sensitive."

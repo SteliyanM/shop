@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="form">
+
+        <form action="{% url 'edit-profile' pk=object.pk %}" method="post" enctype="multipart/form-data">
+
+            <img id="profile_picture" src="{{ MEDIA_URL }}{{ object.profile_picture.url }}" alt="your image"/>
+
+            {{ form.as_p }}
+            {% csrf_token %}
+
+            <div class="buttons">
+                <button type="submit">Edit</button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+
+        id_profile_picture.onchange = evt => {
+            const [file] = id_profile_picture.files
+            if (file) {
+                profile_picture.src = URL.createObjectURL(file)
+            }
+        }
+
+    </script>
+{% endblock %}

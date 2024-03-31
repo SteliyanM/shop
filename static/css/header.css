@@ -43,7 +43,7 @@ div.right > a {
 
 .profile-image {
     background-color: greenyellow;
-    border: 0px solid black;
+    border: 0 solid black;
     border-radius: 50%;
     padding-right: 1em;
     align-self: center;
@@ -51,7 +51,7 @@ div.right > a {
 }
 
 .profile-image > img {
-    width: 6em;
-    height: 6em;
+    width: 4.5em;
+    height: 4.5em;
     border-radius: 50%;
 }

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="form">
+
+        <img src="{{ MEDIA_URL }}{{ object.profile_picture.url }}" alt="">
+
+        <p>Email: {{ object.user.email }}</p>
+        <p>Phone Number: {{ object.user.phone_number }}</p>
+        <p>First name: {{ object.first_name|default_if_none:"" }}</p>
+        <p>Last name: {{ object.last_name|default_if_none:"" }}</p>
+        <p>Gender: {{ object.gender|default_if_none:""|title }}</p>
+        <p>Joined at: {{ object.user.created_at|date }}</p>
+
+        <div class="buttons">
+
+            <a href="{% url 'edit-profile' pk=request.user.pk %}">Edit</a>
+            <a href="#">Delete</a>
+            <a href="#">Change password</a>
+
+        </div>
+
+    </div>
+
+{% endblock %}

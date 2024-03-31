@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 
 from django.views import generic as views
 
+from bokatas_store import settings
 from bokatas_store.accounts.forms import UserLoginForm, UserRegisterForm
 
 
@@ -11,6 +12,16 @@ class UserLoginView(auth_views.LoginView):
     template_name = "accounts/login.html"
     form_class = UserLoginForm
     redirect_authenticated_user = reverse_lazy("index")
+
+    def form_valid(self, form):
+        remember_me = form.cleaned_data['remember_me']
+
+        if remember_me:
+            self.request.session.set_expiry(604800)
+        else:
+            self.request.session.set_expiry(0)
+
+        return super().form_valid(form)
 
 
 class UserRegisterView(views.CreateView):

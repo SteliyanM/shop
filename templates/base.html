@@ -35,10 +35,11 @@
         {% else %}
 
             {% if request.user.userprofile.profile_picture %}
-                <button class="profile-image"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.profile_picture.url }}" alt="user profile picture"></button>
+                <a href="{% url 'details-profile' pk=request.user.pk %}" class="profile-image"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.profile_picture.url }}" alt="user profile picture"></a>
             {% else %}
-                <button class="profile-image" ><img src="{% static 'images/default_profile_picture.webp' %}" alt="user profile picture"></button>
+                <a href="{% url 'details-profile' pk=request.user.pk %}" class="profile-image" ><img src="{% static 'images/default_profile_picture.webp' %}" alt="user profile picture"></a>
             {% endif %}
+            <a class="text" href="{% url 'logout-user' %}">Log out<img class="logout-img" src="{% static 'images/logout.png' %}" alt="log out image"></a>
 
         {% endif %}
 

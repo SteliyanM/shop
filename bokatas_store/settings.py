@@ -144,3 +144,6 @@ AUTH_USER_MODEL = "accounts.BokataStoreUser"
 LOGIN_URL = reverse_lazy("login-user")
 LOGIN_REDIRECT_URL = reverse_lazy("index")
 LOGOUT_REDIRECT_URL = reverse_lazy("index")
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 604800
