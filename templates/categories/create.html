@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="form">
+
+        <p class="form-title">Create Category</p>
+
+        <form action="{% url 'create-category' %}" method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <img style="max-width: 300px; height: auto; border-radius: 0" id="category_picture" src="#" alt="">
+
+            <div class="buttons">
+
+                <button type="submit">Create</button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+
+        id_picture.onchange = evt => {
+            const [file] = id_picture.files
+            if (file) {
+                category_picture.src = URL.createObjectURL(file)
+            }
+        }
+
+    </script>
+{% endblock %}

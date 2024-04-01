@@ -26,24 +26,13 @@ class Category(models.Model):
     )
 
     picture = models.ImageField(
-        upload_to="mediafiles/category_pictures",
+        upload_to="category_pictures",
         null=False,
         blank=False,
     )
 
     def __str__(self):
         return self.name
-
-
-class ProductPicture(models.Model):
-    class Meta:
-        verbose_name_plural = "product pictures"
-
-    picture = models.ImageField(
-        upload_to="mediafiles/product_pictures",
-        null=False,
-        blank=False,
-    )
 
 
 class Product(Timestamps):
@@ -54,6 +43,7 @@ class Product(Timestamps):
         max_length=NAME_MAX_LENGTH,
         null=False,
         blank=False,
+        unique=True,
         validators=(
             MinLengthValidator(
                 limit_value=NAME_MIN_LENGTH,
@@ -88,7 +78,18 @@ class Product(Timestamps):
         on_delete=models.CASCADE,
     )
 
-    pictures = models.ManyToManyField(
-        ProductPicture,
-        related_name="products",
+
+class ProductPicture(models.Model):
+    class Meta:
+        verbose_name_plural = "product pictures"
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+    )
+
+    picture = models.ImageField(
+        upload_to="product_pictures",
+        null=False,
+        blank=False,
     )

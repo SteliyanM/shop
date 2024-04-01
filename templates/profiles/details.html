@@ -9,7 +9,7 @@
 
     <div class="form">
 
-        <img src="{{ MEDIA_URL }}{{ object.profile_picture.url }}" alt="">
+        <img class="details-pic" src="{{ MEDIA_URL }}{{ object.profile_picture.url }}" alt="">
 
         <p>Email: {{ object.user.email }}</p>
         <p>Phone Number: {{ object.user.phone_number }}</p>
@@ -21,8 +21,8 @@
         <div class="buttons">
 
             <a href="{% url 'edit-profile' pk=request.user.pk %}">Edit</a>
-            <a href="#">Delete</a>
-            <a href="#">Change password</a>
+            <a href="{% url 'delete-profile' pk=request.user.pk %}">Delete</a>
+            <a href="{% url 'change-password-user' %}">Change password</a>
 
         </div>
 

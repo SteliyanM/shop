@@ -8,14 +8,14 @@ div.form {
     padding: 1em;
 }
 
-div.form * {
+div.form form * {
     font-size: 30px;
     padding: 3px;
 }
 
-div.form img {
-    height: 6em;
-    width: 6em;
+div.form > form > img {
+    height: 8em;
+    width: 8em;
     border-radius: 50%;
     align-self: center;
     margin: 0.5em;
@@ -23,6 +23,7 @@ div.form img {
 
 .buttons {
     margin: 0.5em;
+    align-self: center;
 }
 
 .buttons a,
@@ -39,4 +40,30 @@ div.form img {
 .buttons button:hover {
     background: greenyellow;
     cursor: pointer;
+}
+
+div.form > form {
+    display: flex;
+    flex-direction: column;
+}
+
+div.images {
+    max-width: 920px;
+}
+
+div.images img {
+    width: 300px;
+}
+
+img.details-pic {
+    align-self: center;
+    height: 8em;
+    width: 8em;
+    border-radius: 50%;
+}
+
+.form-title {
+    align-self: center;
+    margin: 1em;
+    font-size: 50px;
 }

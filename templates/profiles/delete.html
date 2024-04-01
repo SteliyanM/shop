@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+	<div class="form">
+
+        <form action="{% url 'delete-profile' pk=request.user.pk %}" method="post">
+
+            <img id="profile_picture" src="{{ MEDIA_URL }}{{ object.userprofile.profile_picture.url }}" alt="your image"/>
+
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="buttons">
+
+                <button type="submit">Delete</button>
+
+            </div>
+
+        </form>
+
+    </div>
+{% endblock %}

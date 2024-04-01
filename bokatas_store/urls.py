@@ -9,4 +9,5 @@ urlpatterns = [
     path('', include("bokatas_store.web.urls")),
     path('accounts/', include("bokatas_store.accounts.urls")),
     path('profiles/', include("bokatas_store.profiles.urls")),
+    path('products/', include("bokatas_store.products.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

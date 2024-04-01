@@ -1,8 +1,11 @@
 from django.contrib.auth import get_user_model
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic as views
 
+from bokatas_store.profiles.forms import EditUserForm, DeleteUserForm
 from bokatas_store.profiles.models import UserProfile
+
+from django import forms
 
 UserModel = get_user_model()
 
@@ -23,18 +26,10 @@ class DetailsProfileView(views.DetailView):
 class EditProfileView(views.UpdateView):
     queryset = UserProfile.objects.all()
     template_name = "profiles/edit.html"
-    fields = ("first_name", "last_name", "gender", "profile_picture")
+    form_class = EditUserForm
 
     def get_success_url(self):
         return reverse("details-profile", kwargs={"pk": self.object.pk})
-
-    def form_valid(self, form):
-        cleaned_pf = form.cleaned_data.get("profile_picture")
-
-        if not cleaned_pf:
-            form.cleaned_data["profile_picture"] = "profile_pictures/default_profile_picture.webp"
-
-        return super().form_valid(form)
 
     def get_object(self, queryset=None):
         try:
@@ -43,3 +38,50 @@ class EditProfileView(views.UpdateView):
             UserProfile.objects.create(user=UserModel.objects.get(pk=self.request.user.pk))
 
         return super().get_object(queryset)
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+
+        form.fields["email"].initial = self.request.user.email
+        form.fields["phone_number"].initial = self.request.user.phone_number
+
+        return form
+
+    def form_valid(self, form):
+        email = form.cleaned_data["email"]
+        phone_number = form.cleaned_data["phone_number"]
+
+        if UserModel.objects.exclude(pk=self.request.user.pk).filter(email=email).exists():
+            form.add_error('email', forms.ValidationError("User with that email already exists", code="invalid"))
+        else:
+            self.request.user.email = email
+
+        if UserModel.objects.exclude(pk=self.request.user.pk).filter(phone_number=phone_number).exists():
+            form.add_error('phone_number', forms.ValidationError("User with that phone number already exists", code="invalid"))
+        else:
+            self.request.user.phone_number = phone_number
+
+        self.request.user.save()
+
+        if form.is_valid():
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+class DeleteProfileView(views.DeleteView):
+    template_name = "profiles/delete.html"
+    queryset = UserModel.objects.prefetch_related("userprofile").all()
+    success_url = reverse_lazy("index")
+    form_class = DeleteUserForm
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # form.instance = self.object
+        form.fields['email'].initial = self.object.email
+        form.fields['first_name'].initial = self.object.userprofile.first_name
+        form.fields['last_name'].initial = self.object.userprofile.last_name
+        form.fields['gender'].initial = self.object.userprofile.gender
+        form.fields['phone_number'].initial = self.object.phone_number
+
+        return form

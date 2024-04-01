@@ -1,10 +1,9 @@
 from django.contrib.auth import views as auth_views, logout, login
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from django.views import generic as views
 
-from bokatas_store import settings
 from bokatas_store.accounts.forms import UserLoginForm, UserRegisterForm
 
 
@@ -34,6 +33,13 @@ class UserRegisterView(views.CreateView):
 
         login(self.request, self.object)
         return response
+
+
+class UserChangePasswordView(auth_views.PasswordChangeView):
+    template_name = "accounts/change_password.html"
+
+    def get_success_url(self):
+        return reverse("details-profile", kwargs={"pk": self.request.user.pk})
 
 
 def logout_view(request):

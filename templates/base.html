@@ -34,11 +34,15 @@
 
         {% else %}
 
-            {% if request.user.userprofile.profile_picture %}
-                <a href="{% url 'details-profile' pk=request.user.pk %}" class="profile-image"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.profile_picture.url }}" alt="user profile picture"></a>
+            {% if request.user.is_staff %}
+                <a class="text" href="{% url 'create-category' %}">Add Category</a>
+                <a class="text" href="{% url 'create-product' %}">Add Product</a>
             {% else %}
-                <a href="{% url 'details-profile' pk=request.user.pk %}" class="profile-image" ><img src="{% static 'images/default_profile_picture.webp' %}" alt="user profile picture"></a>
+                <a class="text" href="#">Orders</a>
             {% endif %}
+
+            <a href="{% url 'details-profile' pk=request.user.pk %}" class="profile-image"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.profile_picture.url }}" alt="user profile picture"></a>
+
             <a class="text" href="{% url 'logout-user' %}">Log out<img class="logout-img" src="{% static 'images/logout.png' %}" alt="log out image"></a>
 
         {% endif %}
