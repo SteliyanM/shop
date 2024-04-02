@@ -1,7 +1,10 @@
-from django.core.validators import MinLengthValidator
+from django.contrib.auth import get_user_model
+from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 from django.db import models
 
 from bokatas_store.core.model_mixins import Timestamps
+
+UserModel = get_user_model()
 
 
 class Category(models.Model):
@@ -93,3 +96,30 @@ class ProductPicture(models.Model):
         null=False,
         blank=False,
     )
+
+
+class Review(Timestamps):
+    rating = models.DecimalField(
+        null=False,
+        blank=False,
+        max_digits=3,
+        decimal_places=1,
+        validators=(
+            MinValueValidator(0.5),
+            MaxValueValidator(5),
+        )
+    )
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+    )
+
+
+
+
