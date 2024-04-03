@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="products">
+
+        {% for product in object.product_set.all %}
+
+
+                <a href="#" class="card">
+
+                    <div class="card-img">
+                        <img src="{{ MEDIA_URL }}{{ product.productpicture_set.first.picture.url }}"
+                             alt="{{ product.name }}">
+                    </div>
+
+                    <div class="texts">
+
+                        <p>{{ product.name }}</p>
+                        <p>{{ product.price }} lv.</p>
+
+                    </div>
+
+
+                </a>
+
+        {% endfor %}
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+.cards {
+    display: flex;
+    margin: 3em;
+    justify-content: normal;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.card {
+    align-items: center;
+    width: 300px;
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.card-img {
+    margin: 1em;
+    align-self: center;
+    justify-content: center;
+    display: flex;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+}
+
+.card-img img {
+    margin: 2em 0em;
+    align-self: center;
+    justify-self: center;
+    display: inline-block;
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.card p {
+    align-self: center;
+    text-align: center;
+    font-size: 30px;
+}
+
+.card-link {
+    text-decoration: none;
+    color: black;
+}
+
+.card:hover {
+    background: greenyellow;
+    cursor: pointer;
+}
+
+.texts {
+    align-self: center;
+    justify-self: end;
+    margin-top: auto;
+    margin-bottom: 0.5em;
+}
+
+.card img:hover {
+    width: 110%;
+    height: 110%;
+}
+

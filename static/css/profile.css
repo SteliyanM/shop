@@ -8,8 +8,8 @@ div.form {
     padding: 1em;
 }
 
-div.form form * {
-    font-size: 30px;
+div.form * {
+    font-size: 25px;
     padding: 3px;
 }
 

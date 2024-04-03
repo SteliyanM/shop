@@ -1,0 +1,38 @@
+.products {
+    display: flex;
+    margin: 5em;
+    flex-direction: column;
+}
+
+.card {
+    padding: 1em;
+    margin: 1em;
+    border: 1px solid lightslategray;
+    display: flex;
+    height: 300px;
+    text-decoration: none;
+    color: black;
+}
+
+.texts {
+    margin: 0em 2em;
+}
+
+.card-img {
+    height: 260px;
+    width: 260px;
+}
+
+.card-img img {
+    align-self: center;
+    justify-self: center;
+    display: inline-block;
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.card p {
+    font-size: 30px;
+    padding: 0.3em;
+}

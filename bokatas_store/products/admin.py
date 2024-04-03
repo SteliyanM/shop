@@ -1,13 +1,6 @@
 from django.contrib import admin
 
-from bokatas_store.products.models import Category, Product, ProductPicture
-
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("name", "picture")
-    list_filter = ("name",)
-    search_fields = ("name",)
+from bokatas_store.products.models import Product, ProductPicture
 
 
 @admin.register(Product)

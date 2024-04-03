@@ -1,6 +1,6 @@
 from django import forms
 
-from bokatas_store.products.models import Product, Category
+from bokatas_store.products.models import Product
 
 
 class MultipleFileInput(forms.ClearableFileInput):
@@ -29,13 +29,3 @@ class BaseProductForm(forms.ModelForm):
 
 class CreateProductForm(BaseProductForm):
     images = MultipleFileField()
-
-
-class BaseCategoryForm(forms.ModelForm):
-    class Meta:
-        model = Category
-        fields = ("name", "picture")
-
-
-class CreateCategoryForm(BaseCategoryForm):
-    ...

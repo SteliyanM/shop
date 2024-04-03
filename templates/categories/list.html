@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/category-cards.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="cards">
+
+        {% for category in object_list %}
+
+            <a class="card-link" href="{% url 'details-category' slug=category.slug %}">
+
+                <div class="card">
+
+                    <div class="card-img">
+
+                        <img src="{{ MEDIA_URL }}{{ category.picture.url }}" alt="{{ category.name }}">
+
+                    </div>
+
+                    <div class="texts">
+
+                        <p>{{ category.name }}</p>
+                        <p>{{ category.product_set.count }}
+                            {% if category.product_set.count == 1 %}
+                                product
+                            {% else %}
+                                products
+                            {% endif %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
