@@ -91,3 +91,12 @@ class Review(Timestamps):
     )
 
 
+class ShoppingCart(models.Model):
+    products = models.ManyToManyField(
+        Product,
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+    )

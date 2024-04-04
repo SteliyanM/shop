@@ -7,30 +7,151 @@
 
 
 {% block content %}
+
+
+    <form id="searchForm" action="{% url 'details-category' slug=category.slug %}" method="get">
+
+        <input type="text" id="searchInput" placeholder="Search product"
+               value="{{ search|default_if_none:'' }}">
+        <button type="submit">Search</button>
+
+    </form>
+
+    <div class="wrapper">
+        <fieldset class="filter-price">
+
+            <div class="price-field">
+                <input type="range" min="{{ min_price }}" max="{{ max_price }}" value="{{ min_price_value }}"
+                       id="lower">
+                <input type="range" min="{{ min_price }}" max="{{ max_price }}" value="{{ max_price_value }}"
+                       id="upper">
+            </div>
+            <div class="price-wrap">
+                <span class="price-title">PRICE FILTER</span>
+                <div class="price-wrap-1">
+                    <input id="one">
+                    <label for="one">lv.</label>
+                </div>
+                <div class="price-wrap_line">-</div>
+                <div class="price-wrap-2">
+                    <input id="two">
+                    <label for="two">lv.</label>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+
     <div class="products">
 
-        {% for product in object.product_set.all %}
+        {% for product in products %}
 
 
-                <a href="#" class="card">
+            <a href="#" class="card">
 
-                    <div class="card-img">
-                        <img src="{{ MEDIA_URL }}{{ product.productpicture_set.first.picture.url }}"
-                             alt="{{ product.name }}">
-                    </div>
+                <div class="card-img">
+                    <img src="{{ MEDIA_URL }}{{ product.productpicture_set.first.picture.url }}"
+                         alt="{{ product.name }}">
+                </div>
 
-                    <div class="texts">
+                <div class="texts">
 
-                        <p>{{ product.name }}</p>
-                        <p>{{ product.price }} lv.</p>
+                    <p>{{ product.name|truncatechars:20 }}</p>
+                    <p>{{ product.price }} lv.</p>
 
-                    </div>
+                    <form action="{% url 'details-category' slug=category.slug %}" method="post">
+
+                        {% csrf_token %}
+
+                        <input style="display: none" type="number" value="{{ product.pk }}">
+
+                        <button class="addtocart">
+                            <div class="pretext">
+                                <i class="fas fa-cart-plus"></i> ADD TO CART
+                            </div>
+
+                            <div class="pretext done">
+                                <div class="posttext"><i class="fas fa-check"></i> ADDED</div>
+                            </div>
+
+                        </button>
+
+                    </form>
+
+                </div>
 
 
-                </a>
+            </a>
 
         {% endfor %}
 
 
     </div>
+
+    <script>
+        // Function to update URL with search query and price range
+        function updateURL() {
+            var searchQuery = document.getElementById('searchInput').value.trim();
+            var lowerVal = parseInt(document.querySelector('#lower').value);
+            var upperVal = parseInt(document.querySelector('#upper').value);
+
+            var newUrl = window.location.origin + window.location.pathname + '?';
+
+            // Add search query to URL if available
+            if (searchQuery) {
+                newUrl += 'search=' + encodeURIComponent(searchQuery);
+            }
+
+            // Add price range to URL
+            if (lowerVal || upperVal) {
+                newUrl += (searchQuery ? '&' : '') + 'price_range=' + lowerVal + '-' + upperVal;
+            }
+
+            history.pushState({}, '', newUrl);
+        }
+
+        // Event listener for search form submission
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            updateURL(); // Update the URL with search query and price range
+            window.location.reload(); // Reload the page with the updated URL
+        });
+
+        var lowerSlider = document.querySelector('#lower');
+        var upperSlider = document.querySelector('#upper');
+
+        // Set initial values for text inputs
+        document.querySelector('#two').value = upperSlider.value;
+        document.querySelector('#one').value = lowerSlider.value;
+
+        // Event listener for upper slider input
+        upperSlider.oninput = function () {
+            var lowerVal = parseInt(lowerSlider.value);
+            var upperVal = parseInt(upperSlider.value);
+
+            if (upperVal < lowerVal + 4) {
+                lowerSlider.value = upperVal - 4;
+                if (lowerVal == lowerSlider.min) {
+                    upperSlider.value = 4;
+                }
+            }
+            document.querySelector('#two').value = this.value;
+            updateURL(); // Update the URL with price range
+        };
+
+        // Event listener for lower slider input
+        lowerSlider.oninput = function () {
+            var lowerVal = parseInt(lowerSlider.value);
+            var upperVal = parseInt(upperSlider.value);
+            if (lowerVal > upperVal - 4) {
+                upperSlider.value = lowerVal + 4;
+                if (upperVal == upperSlider.max) {
+                    lowerSlider.value = parseInt(upperSlider.max) - 4;
+                }
+            }
+            document.querySelector('#one').value = this.value;
+            updateURL(); // Update the URL with price range
+        };
+    </script>
+
 {% endblock %}
