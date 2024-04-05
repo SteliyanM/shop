@@ -11,4 +11,5 @@ urlpatterns = [
     path('profiles/', include("bokatas_store.profiles.urls")),
     path('products/', include("bokatas_store.products.urls")),
     path('category/', include("bokatas_store.categories.urls")),
+    path('shopping-cart/', include("bokatas_store.shopping_cart.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

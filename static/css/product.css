@@ -1,0 +1,102 @@
+@import "add_to_cart_button.css";
+
+.cart {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    width: 80vw;
+}
+
+.cart > * {
+    margin: 1em;
+    font-size: 30px;
+}
+
+.product-image-container {
+    padding: 1em;
+    width: 600px;
+    height: 600px;
+    border-right: 2px solid gray;
+}
+
+.product-image-container > img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.texts {
+    width: 600px;
+}
+
+.texts > p {
+    padding: 0.5em 0em;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons button {
+    padding: 0.5em;
+    background: white;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.review-form {
+    align-self: center;
+    height: 200px;
+}
+
+.review-form > form {
+    display: flex;
+}
+
+.review-form > * {
+    padding: 0.5em;
+    font-size: 25px;
+}
+
+.review-form > button {
+    height: fit-content;
+    padding: 0.3em;
+    background: white;
+    cursor: pointer;
+}
+
+.reviews {
+    padding: 3em;
+}
+
+.review {
+    padding: 1em;
+    border: 1px solid gray;
+}
+
+.reviewer-pf {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.pf-info {
+    display: flex;
+    align-items: center;
+}
+
+.pf-info > * {
+    margin: 0.5em;
+}
+
+.pf-info > p {
+    font-size: 20px;
+}
+
+.review > p {
+    padding: 0.5em 0;
+    font-size: 20px;
+}

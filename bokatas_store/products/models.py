@@ -80,20 +80,11 @@ class Review(Timestamps):
         )
     )
 
+    description = models.TextField()
+
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
-    )
-
-    user = models.ForeignKey(
-        UserModel,
-        on_delete=models.CASCADE,
-    )
-
-
-class ShoppingCart(models.Model):
-    products = models.ManyToManyField(
-        Product,
     )
 
     user = models.ForeignKey(

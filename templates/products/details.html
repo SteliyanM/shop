@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="cart">
+        <div class="images">
+
+            <div class="product-image-container">
+                <img id="main-image" src="{{ MEDIA_URL }}{{ object.productpicture_set.first.picture.url }}"
+                     alt="Main Product Image">
+
+            </div>
+
+            <div class="thumbnail-gallery" style="max-width: 540px; margin: 1em">
+                {% for image in object.productpicture_set.all %}
+                    <img style="max-height: 100px; max-width: 100px; cursor: pointer" src="{{ image.picture.url }}"
+                         alt="Thumbnail" class="thumbnail">
+                {% endfor %}
+            </div>
+
+            {% if object.productpicture_set.all.count > 1 %}
+                <div class="buttons">
+
+                    <button id="prev-btn">Previous Image</button>
+                    <button id="next-btn">Next Image</button>
+
+                </div>
+            {% endif %}
+
+
+        </div>
+
+        <div class="texts">
+
+            <p style="font-size: 50px">{{ object.name }}</p>
+            <p>Price: {{ object.price }} lv.</p>
+            <p>Description: {{ object.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor
+                dolorum eius eum libero minima sed? A dignissimos, enim esse fugit in, ipsa ipsam modi necessitatibus
+                pariatur repudiandae saepe veniam veritatis? </p>
+
+            {% if avg_rating %}
+                <p>Average rating: {{ avg_rating|floatformat:1 }}/5.0</p>
+            {% endif %}
+
+            <a href="{% url 'add-product-to-shopping-cart' pk=object.pk %}">
+
+                <button class="addtocart" style="width: 200px; height: 50px; font-size: 20px">
+                    <div class="pretext">
+                        <i class="fas fa-cart-plus"></i> ADD TO CART
+                    </div>
+
+                    <div class="pretext done">
+                        <div class="posttext"><i class="fas fa-check"></i> ADDED</div>
+                    </div>
+
+                </button>
+
+            </a>
+        
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="review-form">
+
+        <form class="review-form" action="{% url 'details-product' slug=object.slug %}" method="post">
+
+            {{ form.as_p }}
+            {% csrf_token %}
+
+            <button type="submit">Submit</button>
+
+        </form>
+
+    </div>
+
+    <hr>
+
+    <div class="reviews">
+
+        <h2 style="text-align: center; padding: 0 0 1em; font-size: 40px">Reviews</h2>
+
+        {% for review in object.review_set.all %}
+            <div class="review">
+                <div class="pf-info">
+                    <img class="reviewer-pf" src="{{ MEDIA_URL }}{{ review.user.userprofile.profile_picture.url }}"
+                         alt="">
+                    <p>
+                        {% if review.user.userprofile.first_name == None and review.user.userprofile.last_name == None %}
+                            {{ review.user.email }}
+                        {% else %}
+                            {{ review.user.userprofile.first_name|default_if_none:"" }}
+                            {{ review.user.userprofile.last_name|default_if_none:"" }}
+                        {% endif %}
+                    </p>
+                </div>
+
+                <p>Rating: {{ review.rating }}/5.0</p>
+
+                <p>Description: {{ review.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
+                    animi aut dolores error eum natus porro quam saepe. Animi consequatur deserunt eos maiores nostrum
+                    nulla odit quae quis repellendus veritatis. Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit. Aliquam, aliquid architecto aspernatur assumenda culpa debitis dolorum esse ipsam mollitia,
+                    obcaecati odit repellat reprehenderit suscipit tempora temporibus vero voluptate voluptatum.
+                    Eveniet. </p>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImage = document.getElementById('main-image');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            let currentIndex = 0; // Keep track of the current image index
+
+            thumbnails.forEach((thumbnail, index) => {
+                thumbnail.addEventListener('click', () => {
+                    // Change the src of the main image to the clicked thumbnail's src
+                    mainImage.src = thumbnail.src;
+                    currentIndex = index; // Update the current index
+                });
+            });
+
+            // Add click event listener to the previous button to switch to the previous image
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length; // Move to the previous image index
+                mainImage.src = thumbnails[currentIndex].src; // Update the main image
+            });
+
+            // Add click event listener to the next button to switch to the next image
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % thumbnails.length; // Move to the next image index
+                mainImage.src = thumbnails[currentIndex].src; // Update the main image
+            });
+        });
+    </script>
+{% endblock %}

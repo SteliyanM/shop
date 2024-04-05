@@ -1,6 +1,6 @@
 from django import forms
 
-from bokatas_store.products.models import Product
+from bokatas_store.products.models import Product, Review
 
 
 class MultipleFileInput(forms.ClearableFileInput):
@@ -29,3 +29,25 @@ class BaseProductForm(forms.ModelForm):
 
 class CreateProductForm(BaseProductForm):
     images = MultipleFileField()
+
+
+class BaseReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ("rating", "description")
+
+
+class CreateReviewForm(BaseReviewForm):
+    rating = forms.IntegerField(
+        max_value=5,
+        min_value=1,
+        required=True,
+    )
+
+    class Meta:
+        model = Review
+        fields = ("rating", "description",)
+
+
+class AddProductToCartBaseForm(forms.Form):
+    product_id = forms.IntegerField(required=False)
