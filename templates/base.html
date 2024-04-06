@@ -33,7 +33,7 @@
             <a class="text" href="{% url 'register-user' %}">Register</a>
 
         {% else %}
-            <a href="{% url 'details-shopping-cart' %}"><img class="img" src="{% static 'images/shopping_cart.png' %}" alt="shopping cart"></a>
+            <a href="{% url 'details-shopping-cart' %}"><img class="img" src="{% static 'images/shopping_cart.png' %}" alt="shopping cart"></a><p>{{ request.user.shoppingcart.products.count }}</p>
             {% if request.user.is_staff %}
                 <a class="text" href="{% url 'create-category' %}">Add Category</a>
                 <a class="text" href="{% url 'create-product' %}">Add Product</a>

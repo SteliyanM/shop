@@ -1,5 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/shopping_cart_products.css' %}">
+{% endblock %}
 
 {% block content %}
-	{{ products }}
+
+
+    <div class="products">
+        <h1>Products</h1>
+    
+        {% for product in products %}
+
+            <div class="product">
+
+                <img src="{{ MEDIA_URL }}{{ product.productpicture_set.first.picture.url }}" alt="{{ product.name }}">
+
+                <div class="texts">
+
+                    <p>{{ product.name }}</p>
+                    <p>{{ product.price }} lv.</p>
+
+                </div>
+
+                <a href="{% url 'remove-product-to-shopping-cart' pk=product.pk %}">Remove product</a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
 {% endblock %}
