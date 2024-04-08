@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/shopping_cart_products.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="products">
+        <h1>Products</h1>
+        <form class="products" action="{% url 'create-order' %}" method="post">
+            {% csrf_token %}
+            {% for product, form in products_and_forms.items %}
+                <div class="product">
+
+                    <img src="{{ MEDIA_URL }}{{ product.productpicture_set.first.picture.url }}"
+                         alt="{{ product.name }}">
+
+                    <div class="texts">
+
+                        <p>{{ product.name }}</p>
+                        <p>{{ product.price }} lv.</p>
+
+                    </div>
+
+                    <div class="quantity-form">
+
+                        {{ form.as_p }}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+            <button type="submit">Add to Cart</button>
+        </form>
+
+    </div>
+
+
+{% endblock %}

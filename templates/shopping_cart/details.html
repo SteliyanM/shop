@@ -10,7 +10,7 @@
 
     <div class="products">
         <h1>Products</h1>
-    
+
         {% for product in products %}
 
             <div class="product">
@@ -29,6 +29,9 @@
             </div>
 
         {% endfor %}
-
+        {% if request.user.shoppingcart.products.all %}
+            <a class="order-button" href="{% url 'create-order' %}">Order</a>
+        {% endif %}
     </div>
+
 {% endblock %}

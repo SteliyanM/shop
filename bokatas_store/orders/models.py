@@ -22,12 +22,24 @@ class Order(models.Model):
         default=False,
     )
 
-    products = models.ManyToManyField(
-        Product,
-        related_name="orders",
-    )
-
     user = models.ForeignKey(
         UserModel,
+        on_delete=models.CASCADE,
+    )
+
+
+class ProductQuantity(models.Model):
+    quantity = models.PositiveSmallIntegerField(
+        null=False,
+        blank=False,
+    )
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+    )
+
+    order = models.ForeignKey(
+        Order,
         on_delete=models.CASCADE,
     )
