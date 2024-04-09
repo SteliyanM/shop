@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/shopping_cart_products.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="products">
+
+        <h1>Orders</h1>
+
+        {% for order in object_list %}
+            <div class="product">
+
+                <div class="texts">
+
+                    {% for productquantity in order.productquantity_set.all %}
+                        <a style="text-decoration: none; color: blue" href="{% url 'details-product' slug=productquantity.product.slug %}"><p>{{ productquantity.product.name }}</p></a>
+                    {% endfor %}
+
+
+                    <p>Total price: {{ order.total_price }} lv.</p>
+
+                </div>
+
+                {% if order.userpayment_set.all %}
+                    <p style="background: lawngreen" class="status-button">Completed</p>
+
+                {% else %}
+                    <a href="{% url 'create-payment-to-order' pk=order.pk %}">Add payment method to complete</a>
+                {% endif %}
+
+
+            </div>
+        {% endfor %}
+
+
+    </div>
+{% endblock %}

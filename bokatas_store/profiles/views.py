@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse, reverse_lazy
 from django.views import generic as views
+from django.contrib.auth import mixins as auth_mixins
 
 from bokatas_store.profiles.forms import EditUserForm, DeleteUserForm
 from bokatas_store.profiles.models import UserProfile
@@ -10,7 +11,7 @@ from django import forms
 UserModel = get_user_model()
 
 
-class DetailsProfileView(views.DetailView):
+class DetailsProfileView(auth_mixins.LoginRequiredMixin, views.DetailView):
     queryset = UserProfile.objects.prefetch_related("user").all()
     template_name = "profiles/details.html"
 
@@ -23,7 +24,7 @@ class DetailsProfileView(views.DetailView):
         return super().get_object(queryset)
 
 
-class EditProfileView(views.UpdateView):
+class EditProfileView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     queryset = UserProfile.objects.all()
     template_name = "profiles/edit.html"
     form_class = EditUserForm
@@ -69,7 +70,7 @@ class EditProfileView(views.UpdateView):
             return self.form_invalid(form)
 
 
-class DeleteProfileView(views.DeleteView):
+class DeleteProfileView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     template_name = "profiles/delete.html"
     queryset = UserModel.objects.prefetch_related("userprofile").all()
     success_url = reverse_lazy("index")

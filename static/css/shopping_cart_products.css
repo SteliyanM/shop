@@ -52,9 +52,11 @@
     color: black;
     padding: 0.6em;
     font-size: 30px;
-    margin: 0.1em;
+    margin: 0.5em;
     border: 1px solid black;
     border-radius: 15px;
+    cursor: pointer;
+    margin-bottom: 3em;
 }
 
 @media screen and (max-width: 800px) {
@@ -67,4 +69,34 @@
     .product > a {
         margin: auto;
     }
+}
+
+.quantity-form {
+    align-self: center;
+    justify-self: end;
+    margin: auto 0 auto auto;
+}
+
+.quantity-form * {
+    font-size: 30px;
+}
+
+.quantity-form input {
+    width: 100px;
+}
+
+#total-sum {
+    align-self: center;
+    font-size: 20px;
+    margin: 0.5em;
+}
+
+.status-button {
+    padding: 0.5em;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 1px solid black;
+    height: fit-content;
+    align-self: center;
+    margin: auto 0 auto auto;
 }

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="form">
+    
+        <h1 style="font-size: 30px">Add address to continue</h1>
+
+        <form action="{% url 'create-address-to-order' %}" method="post">
+            
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+
+        </form>
+
+    </div>
+
+{% endblock %}

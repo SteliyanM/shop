@@ -46,21 +46,38 @@
                 <p>Average rating: {{ avg_rating|floatformat:1 }}/5.0</p>
             {% endif %}
 
-            <a href="{% url 'add-product-to-shopping-cart' pk=object.pk %}">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'add-product-to-shopping-cart' pk=object.pk %}">
 
-                <button class="addtocart" style="width: 200px; height: 50px; font-size: 20px">
-                    <div class="pretext">
-                        <i class="fas fa-cart-plus"></i> ADD TO CART
-                    </div>
+                    <button class="addtocart" style="width: 200px; height: 50px; font-size: 20px">
+                        <div class="pretext">
+                            <i class="fas fa-cart-plus"></i> ADD TO CART
+                        </div>
 
-                    <div class="pretext done">
-                        <div class="posttext"><i class="fas fa-check"></i> ADDED</div>
-                    </div>
+                        <div class="pretext done">
+                            <div class="posttext"><i class="fas fa-check"></i> ADDED</div>
+                        </div>
 
-                </button>
+                    </button>
 
-            </a>
-        
+                </a>
+            {% else %}
+                <a href="{% url 'login-user' %}">
+
+                    <button class="addtocart" style="width: 200px; height: 50px; font-size: 20px">
+                        <div class="pretext">
+                            <i class="fas fa-cart-plus"></i> Login to add to cart
+                        </div>
+
+                        <div class="pretext done">
+                            <div class="posttext"><i class="fas fa-check"></i> ADDED</div>
+                        </div>
+
+                    </button>
+
+                </a>
+            {% endif %}
+
 
         </div>
 

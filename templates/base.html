@@ -33,17 +33,21 @@
             <a class="text" href="{% url 'register-user' %}">Register</a>
 
         {% else %}
-            <a href="{% url 'details-shopping-cart' %}"><img class="img" src="{% static 'images/shopping_cart.png' %}" alt="shopping cart"></a><p>{{ request.user.shoppingcart.products.count }}</p>
+            <a href="{% url 'details-shopping-cart' %}"><img class="img" src="{% static 'images/shopping_cart.png' %}"
+                                                             alt="shopping cart"></a>
+            <p>{{ request.user.shoppingcart.products.count }}</p>
             {% if request.user.is_staff %}
                 <a class="text" href="{% url 'create-category' %}">Add Category</a>
                 <a class="text" href="{% url 'create-product' %}">Add Product</a>
-            {% else %}
-                <a class="text" href="#">Orders</a>
             {% endif %}
+            <a class="text" href="{% url 'list-orders' %}">Orders</a>
 
-            <a href="{% url 'details-profile' pk=request.user.pk %}" class="profile-image"><img src="{{ MEDIA_URL }}{{ request.user.userprofile.profile_picture.url }}" alt="user profile picture"></a>
+            <a href="{% url 'details-profile' pk=request.user.pk %}" class="profile-image"><img
+                    src="{{ MEDIA_URL }}{{ request.user.userprofile.profile_picture.url }}" alt="user profile picture"></a>
 
-            <a class="text" href="{% url 'logout-user' %}">Log out<img class="img" src="{% static 'images/logout.png' %}" alt="log out image"></a>
+            <a class="text" href="{% url 'logout-user' %}">Log out<img class="img"
+                                                                       src="{% static 'images/logout.png' %}"
+                                                                       alt="log out image"></a>
 
         {% endif %}
 

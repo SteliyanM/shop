@@ -58,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'bokatas_store.core.middlewares.AddAddressMiddleware',
 ]
 
 ROOT_URLCONF = 'bokatas_store.urls'

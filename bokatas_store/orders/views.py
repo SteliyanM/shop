@@ -1,11 +1,13 @@
+from django.contrib.auth import mixins as auth_mixins
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import generic as views
 
-from .forms import ProductQuantityForm
+from .forms import ProductQuantityForm, AddressForm, PaymentForm
 from .models import ProductQuantity, Order
 
 
-class CreateOrderView(views.TemplateView):
+class CreateOrderView(auth_mixins.LoginRequiredMixin, views.TemplateView):
     template_name = "orders/create.html"
 
     def _get_shopping_cart_products(self):
@@ -49,6 +51,37 @@ class CreateOrderView(views.TemplateView):
         order.total_price = self._calculate_order_total_price(order.pk)
         order.save()
 
+        self.request.user.shoppingcart.products.clear()
+
         return redirect("index")
 
 
+class AddressOrderView(auth_mixins.LoginRequiredMixin, views.CreateView):
+    form_class = AddressForm
+    template_name = "orders/create-address.html"
+    success_url = reverse_lazy("index")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+
+        return super().form_valid(form)
+
+
+class PaymentOrderView(auth_mixins.LoginRequiredMixin, views.CreateView):
+    form_class = PaymentForm
+    template_name = "order/create-payment.html"
+    success_url = reverse_lazy("list-orders")
+
+    def form_valid(self, form):
+        form.instance.order = Order.objects.get(pk=self.kwargs["pk"])
+        form.instance.user = self.request.user
+
+        return super().form_valid(form)
+
+
+class ListOrdersView(auth_mixins.LoginRequiredMixin, views.ListView):
+    model = Order
+    template_name = "orders/list.html"
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user).order_by("-pk")

@@ -1,5 +1,7 @@
 from django import forms
 
+from bokatas_store.profiles.models import UserAddress, UserPayment
+
 
 class ProductQuantityForm(forms.Form):
     quantity = forms.IntegerField(min_value=1, label="Quantity", initial=1)
@@ -16,3 +18,20 @@ class ProductQuantityForm(forms.Form):
             raise forms.ValidationError(f"The selected quantity exceeds the available stock count."
                                         f" Product current count is {self.product.count}")
         return quantity
+
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = UserAddress
+        fields = ("address1", "address2", "zip_code", "city", "country")
+
+        labels = {
+            "address1": "First address",
+            "address2": "Second address",
+        }
+
+
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model = UserPayment
+        fields = ("payment_method",)
