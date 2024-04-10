@@ -38,9 +38,7 @@
 
             <p style="font-size: 50px">{{ object.name }}</p>
             <p>Price: {{ object.price }} lv.</p>
-            <p>Description: {{ object.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor
-                dolorum eius eum libero minima sed? A dignissimos, enim esse fugit in, ipsa ipsam modi necessitatibus
-                pariatur repudiandae saepe veniam veritatis? </p>
+            <p>Description: {{ object.description }}</p>
 
             {% if avg_rating %}
                 <p>Average rating: {{ avg_rating|floatformat:1 }}/5.0</p>
@@ -121,12 +119,7 @@
 
                 <p>Rating: {{ review.rating }}/5.0</p>
 
-                <p>Description: {{ review.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-                    animi aut dolores error eum natus porro quam saepe. Animi consequatur deserunt eos maiores nostrum
-                    nulla odit quae quis repellendus veritatis. Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit. Aliquam, aliquid architecto aspernatur assumenda culpa debitis dolorum esse ipsam mollitia,
-                    obcaecati odit repellat reprehenderit suscipit tempora temporibus vero voluptate voluptatum.
-                    Eveniet. </p>
+                <p>Description: {{ review.description }}</p>
             </div>
 
         {% endfor %}

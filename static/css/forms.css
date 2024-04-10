@@ -45,3 +45,29 @@ div.form button:hover {
 #id_password2_helptext {
     display: none;
 }
+
+.info.form {
+    flex-direction: column;
+}
+
+.info.form > * {
+    font-size: 20px;
+    margin: 1em;
+}
+
+.info.form > h1 {
+    font-size: 30px;
+}
+
+.info-divs {
+    display: flex;
+}
+
+.info-divs > div {
+    margin: 1em;
+}
+
+.info.form p, .info.form a {
+    padding: 0.3em 0;
+    font-size: 20px;
+}

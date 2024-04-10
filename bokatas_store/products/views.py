@@ -1,22 +1,18 @@
 from django.db.models import Avg
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
-from django.contrib.auth import mixins as
 
+from bokatas_store.core.view_mixins import AdminRequired
 from bokatas_store.products.forms import CreateProductForm, CreateReviewForm
 from bokatas_store.products.models import ProductPicture, Product, Review
 
 
-
-class CreateProductView(views.CreateView):
+class CreateProductView(AdminRequired, views.CreateView):
     form_class = CreateProductForm
     template_name = "products/create.html"
     success_url = reverse_lazy("index")
-
-    def dispatch(self, request, *args, **kwargs):
-        if not self.
 
     def form_valid(self, form):
         if form.is_valid():

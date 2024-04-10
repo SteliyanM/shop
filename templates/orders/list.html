@@ -16,11 +16,14 @@
                 <div class="texts">
 
                     {% for productquantity in order.productquantity_set.all %}
-                        <a style="text-decoration: none; color: blue" href="{% url 'details-product' slug=productquantity.product.slug %}"><p>{{ productquantity.product.name }}</p></a>
+                        <a style="text-decoration: none; color: blue"
+                           href="{% url 'details-product' slug=productquantity.product.slug %}">
+                            <p>{{ productquantity.product.name }}</p></a>
                     {% endfor %}
 
 
                     <p>Total price: {{ order.total_price }} lv.</p>
+                    <a href="{% url 'details-order' pk=order.pk %}">Details</a>
 
                 </div>
 

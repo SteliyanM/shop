@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="info form">
+
+        <h1>Order</h1>
+
+        <div class="info-divs">
+
+            <div class="product-info">
+                <h3>Products:</h3>
+
+                {% for productquantity in object.productquantity_set.all %}
+                    <a style="text-decoration: none; color: blue"
+                       href="{% url 'details-product' slug=productquantity.product.slug %}"><p
+                            style="font-size: 20px">{{ productquantity.product.name }}</p></a>
+
+                {% endfor %}
+
+
+                <p>Total price: {{ object.total_price }}</p>
+
+            </div>
+
+            <div class="address-info">
+
+                <h3>Address:</h3>
+
+                <p>First Address: {{ request.user.useraddress.address1 }}</p>
+                <p>Second Address: {{ request.user.useraddress.address2 }}</p>
+
+                <p>City: {{ request.user.useraddress.city }}</p>
+                <p>Zip code: {{ request.user.useraddress.zip_code }}</p>
+                <p>Country: {{ request.user.useraddress.country }}</p>
+
+            </div>
+
+            <div class="payment-info">
+
+                <h3>Payment method: </h3>
+                {% if object.userpayment_set.first.payment_method %}
+                    <p>{{ object.userpayment_set.first.payment_method }}</p>
+                {% else %}
+                    <a href="{% url 'create-payment-to-order' pk=object.pk %}">Add payment</a>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

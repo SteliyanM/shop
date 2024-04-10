@@ -53,7 +53,7 @@ class CreateOrderView(auth_mixins.LoginRequiredMixin, views.TemplateView):
 
         self.request.user.shoppingcart.products.clear()
 
-        return redirect("index")
+        return redirect("list-orders")
 
 
 class AddressOrderView(auth_mixins.LoginRequiredMixin, views.CreateView):
@@ -85,3 +85,16 @@ class ListOrdersView(auth_mixins.LoginRequiredMixin, views.ListView):
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user).order_by("-pk")
+
+
+class DetailsOrderView(views.DetailView):
+    def dispatch(self, request, *args, **kwargs):
+        order = self.get_object()
+
+        if order.user != request.user:
+            return redirect('index')
+
+        return super().dispatch(request, *args, **kwargs)
+
+    queryset = Order.objects.all().prefetch_related("user").prefetch_related("userpayment_set")
+    template_name = "orders/details.html"
