@@ -81,20 +81,24 @@
 
     </div>
 
-    <hr>
 
-    <div class="review-form">
+    
+    {% if request.user.is_authenticated %}
+        <hr>
+        <div class="review-form">
 
-        <form class="review-form" action="{% url 'details-product' slug=object.slug %}" method="post">
+            <form class="review-form" action="{% url 'details-product' slug=object.slug %}" method="post">
 
-            {{ form.as_p }}
-            {% csrf_token %}
+                {{ form.as_p }}
+                {% csrf_token %}
 
-            <button type="submit">Submit</button>
+                <button type="submit">Submit</button>
 
-        </form>
+            </form>
 
-    </div>
+        </div>
+    {% endif %} 
+    
 
     <hr>
 

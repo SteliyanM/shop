@@ -1,4 +1,5 @@
 from django.db.models import Count, Q, Min, Max
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
 from .forms import CreateCategoryForm
@@ -81,7 +82,9 @@ class DetailsCategoryView(views.ListView):
 
         context["products"] = products
         context["search"] = search
-        context["category"] = Category.objects.get(slug=self.kwargs["slug"])
+
+        category = get_object_or_404(Category, slug=self.kwargs["slug"])
+        context["category"] = category
 
         min_price, max_price = self._get_min_max_price
 

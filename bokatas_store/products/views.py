@@ -39,12 +39,14 @@ class DetailsProductView(views.DetailView):
     def post(self, request, *args, **kwargs):
         form = CreateReviewForm(request.POST)
 
-        if form.is_valid():
-            form.instance.user = self.request.user
-            form.instance.product = Product.objects.get(slug=kwargs["slug"])
-            form.save()
+        if request.user.is_authenticated:
 
-            return HttpResponseRedirect(reverse("details-product", kwargs=kwargs))
+            if form.is_valid():
+                form.instance.user = self.request.user
+                form.instance.product = Product.objects.get(slug=kwargs["slug"])
+                form.save()
+
+                return HttpResponseRedirect(reverse("details-product", kwargs=kwargs))
 
         return render(request, self.template_name, {"form": form, "object": self.get_object()})
 
