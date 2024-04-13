@@ -89,10 +89,10 @@ WSGI_APPLICATION = 'bokatas_store.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "store-db",
-        "USER": "postgres",
-        "PASSWORD": "admin",
-        "HOST": "djangostore-server.postgres.database.azure.com",
+        "NAME": "store-project-database",
+        "USER": "nsbmmwczvm",
+        "PASSWORD": "0400y0MzTFpMp$nh",
+        "HOST": "store-project-server.postgres.database.azure.com",
         "PORT": "5432",
     }
 }
