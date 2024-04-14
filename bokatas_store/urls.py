@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.urls import path, include, re_path
-from django.views.static import serve
+from django.conf.urls.static import static
+from django.urls import path, include
 
 from bokatas_store import settings
 
@@ -13,6 +13,4 @@ urlpatterns = [
     path("category/", include("bokatas_store.categories.urls")),
     path("shopping-cart/", include("bokatas_store.shopping_cart.urls")),
     path("order/", include("bokatas_store.orders.urls")),
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

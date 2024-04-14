@@ -61,6 +61,13 @@ class AddressOrderView(auth_mixins.LoginRequiredMixin, views.CreateView):
     template_name = "orders/create-address.html"
     success_url = reverse_lazy("index")
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+
+        form.fields["address2"].required = False
+
+        return form
+
     def form_valid(self, form):
         form.instance.user = self.request.user
 
